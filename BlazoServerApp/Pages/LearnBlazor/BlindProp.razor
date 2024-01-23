@@ -1,0 +1,23 @@
+﻿@page "/LearnBlazor/BlindProp"
+
+<h3>BlindProp</h3>
+Name : @Product.Name
+<br />
+Name : @Product.IsActive
+<br />
+Price : @Product.Price
+<br />
+@* two way Binding *@
+<input type="number" @bind-value="@Product.Price" @bind-value:event="oninput"/>
+
+@code {
+
+    Product Product = new()
+        {
+            Id = 1,
+            Name = "Product 1",
+            IsActive = true,
+            Price = 10.99
+        };
+
+}
