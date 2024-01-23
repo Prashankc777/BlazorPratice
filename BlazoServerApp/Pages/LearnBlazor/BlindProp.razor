@@ -8,16 +8,71 @@ Name : @Product.IsActive
 Price : @Product.Price
 <br />
 @* two way Binding *@
-<input type="number" @bind-value="@Product.Price" @bind-value:event="oninput"/>
+@* <input type="number" @bind-value="@Product.Price" @bind-value:event="oninput"/> *@
+
+<input type="checkbox" @bind-value="@Product.IsActive" @bind-value:event="oninput" checked="@(Product.IsActive ? "checked" : null)" />
+
+@if(!string.IsNullOrWhiteSpace(selectedProp))
+{
+    <p>Property Selected : @Product.ProductProps.FirstOrDefault(x=>x.Key == selectedProp).Value</p>
+})
+
+@{
+    if (string.IsNullOrWhiteSpace(checkWhite))
+    {
+       
+    }
+
+    if (string.IsNullOrEmpty(checkWhite))
+    {
+        
+    }
+
+}
+
+<br />
+
+
+Product Properties
+
+<select @bind="selectedProp">
+    @foreach (var prop in Product.ProductProps)
+    {
+        <option value="@prop.Key">@prop.Key</option>
+    }
+</select>
+@* <input type="number" @bind-value="@Product.Price" @bind:event="oninput" /> *@
 
 @code {
+
+    private string selectedProp = "";
+
+    string checkWhite = "          ";
+    
+
+   
 
     Product Product = new()
         {
             Id = 1,
             Name = "Product 1",
             IsActive = true,
-            Price = 10.99
+            Price = 10.99,
+            ProductProps = new List<ProductProp>
+            {
+                new ProductProp
+                {
+                    Id = 1,
+                    Key = "Color",
+                    Value = "Red"
+                },
+                new ProductProp
+                {
+                    Id = 2,
+                    Key = "size",
+                    Value = "20oz"
+                }
+            }
         };
 
 }

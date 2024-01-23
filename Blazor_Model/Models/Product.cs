@@ -12,5 +12,6 @@ namespace Blazor_Model.Models
         public string Name { get; set; } = string.Empty;
         public bool IsActive { get; set; }
         public double Price { get; set; }
+        public IEnumerable<ProductProp>? ProductProps { get; set; }
     }
 }
