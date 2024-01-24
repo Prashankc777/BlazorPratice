@@ -1,36 +1,28 @@
 ﻿@page "/LearnBlazor/BlindProp"
+<div class="row border p-2">
 
-<h3>BlindProp</h3>
-Name : @Product.Name
-<br />
-Name : @Product.IsActive
-<br />
-Price : @Product.Price
-<br />
-@* two way Binding *@
-@* <input type="number" @bind-value="@Product.Price" @bind-value:event="oninput"/> *@
 
-<input type="checkbox" @bind-value="@Product.IsActive" @bind-value:event="oninput" checked="@(Product.IsActive ? "checked" : null)" />
+    <h3>Product Summary</h3>
+    Name : @Product.Name
+    <br />
+    Name : @Product.IsActive
+    <br />
+    Price : @Product.Price
+    <br />
+    @* two way Binding *@
+    @* <input type="number" @bind-value="@Product.Price" @bind-value:event="oninput"/> *@
 
-@if(!string.IsNullOrWhiteSpace(selectedProp))
-{
-    <p>Property Selected : @Product.ProductProps.FirstOrDefault(x=>x.Key == selectedProp).Value</p>
-})
+    <input type="checkbox" @bind-value="@Product.IsActive" @bind-value:event="oninput" checked="@(Product.IsActive ? "checked" : null)" />
 
-@{
-    if (string.IsNullOrWhiteSpace(checkWhite))
+    @if (!string.IsNullOrWhiteSpace(selectedProp))
     {
-       
-    }
+        <p>Property Selected : @Product.ProductProps.FirstOrDefault(x => x.Key == selectedProp).Value</p>
+    })
 
-    if (string.IsNullOrEmpty(checkWhite))
-    {
-        
-    }
 
-}
+    <br />
 
-<br />
+</div>
 
 
 Product Properties
@@ -48,9 +40,9 @@ Product Properties
     private string selectedProp = "";
 
     string checkWhite = "          ";
-    
 
-   
+
+
 
     Product Product = new()
         {
@@ -74,5 +66,36 @@ Product Properties
                 }
             }
         };
+
+    List<Product> Products = new();
+
+    protected override void OnInitialized()
+    {
+        Products.Add(new Product
+        {
+            Id = 1,
+            Name = "Midnight Blaze",
+            IsActive = false,
+            ProductProps = new()
+            {
+                new ProductProp() { Id = 1, Key = "Flavor", Value = "Rose"},
+                new ProductProp { Id = 2, Key = "Size", Value = "20oz"},
+                new ProductProp { Id = 3, Key = "Color", Value="Purple" }
+            }
+        });
+
+        Products.Add(new Product
+        {
+            Id = 2,
+            Name = "Blossom Lily",
+            IsActive = true,
+                ProductProps = new()
+            {
+                new ProductProp { Id = 1, Key = "Flavor", Value = "Lily" },
+                new ProductProp { Id = 2, Key = "Size", Value = "18oz" },
+                new ProductProp {Id = 3,Key = "Color",Value = "White"}
+            }
+        });
+    }
 
 }
