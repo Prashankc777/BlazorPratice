@@ -9,7 +9,7 @@
     <br />
     Price : @Product.Price
     <br />
-    @* two way Binding *@
+    @* two way Binding *@ 
     @* <input type="number" @bind-value="@Product.Price" @bind-value:event="oninput"/> *@
 
     <input type="checkbox" @bind-value="@Product.IsActive" @bind-value:event="oninput" checked="@(Product.IsActive ? "checked" : null)" />
@@ -18,11 +18,12 @@
     {
         <p>Property Selected : @Product.ProductProps.FirstOrDefault(x => x.Key == selectedProp).Value</p>
     })
-
-
     <br />
+    
+    
 
 </div>
+
 
 
 Product Properties
@@ -34,16 +35,29 @@ Product Properties
     }
 </select>
 @* <input type="number" @bind-value="@Product.Price" @bind:event="oninput" /> *@
+<div class="col-12">
+    <h2 class="text-success">Product Table</h2>
+    <table class="table table-striped">
+        <tbody>
+        @foreach(var product in Products)
+        {
+            <tr>
+                <td><input type="text" @bind-value="Product.Name" @bind-value:event="oninput"/></td>
+                <input type="checkbox" @bind-value="@Product.IsActive" @bind-value:event="oninput" checked="@(Product.IsActive ? "checked" : null)" />
+                    <td><input type="number" @bind-value="Product.Price" @bind-value:event="oninput" /></td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => Product = product">Edit</button>
+                </td>
+            </tr>
+        })
+        </tbody>
+    </table>
+</div>
+
 
 @code {
 
     private string selectedProp = "";
-
-    string checkWhite = "          ";
-
-
-
-
     Product Product = new()
         {
             Id = 1,
